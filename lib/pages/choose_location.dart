@@ -8,6 +8,7 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+  int counter = 0;
   //Created initState to set the initial state of the location screen
   @override
   void initState() {
@@ -24,7 +25,14 @@ class _ChooseLocationState extends State<ChooseLocation> {
         title: const Text("Choose Location"),
         centerTitle: true,
       ),
-      body: const Text("Where do you live"),
+      body: ElevatedButton(
+        onPressed: () {
+          setState(() {
+            counter++;
+          });
+        },
+        child: Text("counter is $counter"),
+      ),
     );
   }
 }
