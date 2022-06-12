@@ -22,7 +22,6 @@ class _LoadingState extends State<Loading> {
     String datetime = data['datetime'];
     //Choose characters of offset that matter
     String offset = data['utc_offset'].substring(0, 3);
-
     //Crate DateTime object
     DateTime now = DateTime.parse(datetime);
     //Updates current time with offset
