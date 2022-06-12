@@ -14,9 +14,13 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   //add async between parenthesis & curly brackets to add await to Future
   void getData() async {
+    //Uri breaks URL into parts and set it to a HTTP response to decode later
     Response response =
         await get(Uri.parse("https://jsonplaceholder.typicode.com/todos/1"));
-    debugPrint(response.body);
+    //Maps json string data into keys and values like a regular Hashmap
+    Map data = jsonDecode(response.body);
+    debugPrint("$data");
+    debugPrint(data["title"]);
   }
   /*
   void getData() async {
