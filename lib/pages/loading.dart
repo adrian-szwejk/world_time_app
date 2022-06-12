@@ -17,7 +17,17 @@ class _LoadingState extends State<Loading> {
     //Make the request
     Response response = await get(
         Uri.parse("http://worldtimeapi.org/api/timezone/America/Chicago"));
-    debugPrint(response.body);
+    Map data = jsonDecode(response.body);
+    debugPrint("$data");
+    String datetime = data['datetime'];
+    //Choose characters of offset that matter
+    String offset = data['utc_offset'].substring(0, 3);
+
+    //Crate DateTime object
+    DateTime now = DateTime.parse(datetime);
+    //Updates current time with offset
+    now = now.add(Duration(hours: int.parse(offset)));
+    debugPrint("$now");
   }
 
   //Created initState to set the initial state of the location screen
