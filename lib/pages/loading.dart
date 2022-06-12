@@ -13,31 +13,19 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   //add async between parenthesis & curly brackets to add await to Future
-  void getData() async {
-    //Uri breaks URL into parts and set it to a HTTP response to decode later
-    Response response =
-        await get(Uri.parse("https://jsonplaceholder.typicode.com/todos/1"));
-    //Maps json string data into keys and values like a regular Hashmap
-    Map data = jsonDecode(response.body);
-    debugPrint("$data");
-    debugPrint(data["title"]);
+  void getTime() async {
+    //Make the request
+    Response response = await get(
+        Uri.parse("http://worldtimeapi.org/api/timezone/America/Chicago"));
+    debugPrint(response.body);
   }
-  /*
-  void getData() async {
-    var url = Uri.parse("https://jsonplaceholder.typicode.com/todos/1");
-    var response = await get(url);
-    Map data = jsonDecode(response.body);
-    debugPrint("$data");
-    debugPrint(data['title']);
-  }
-  */
 
   //Created initState to set the initial state of the location screen
   @override
   void initState() {
     //Run the original function that we are overriding
     super.initState();
-    getData();
+    getTime();
   }
 
   @override
