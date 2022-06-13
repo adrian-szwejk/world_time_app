@@ -11,12 +11,16 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+  String? time = 'loading';
   //Functio to create instance of worldTime to use getTime function in here
   void setupWorldTime() async {
     WorldTime instance = WorldTime(
         location: 'Chicago', flag: 'Chicago.png', url: 'America/Chicago');
     await instance.getTime();
     debugPrint(instance.time);
+    setState(() {
+      time = instance.time;
+    });
   }
 
   //Created initState to set the initial state of the location screen
@@ -30,8 +34,11 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(child: Text("loading screen")),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Text("Current Time: $time"),
+      ),
     );
   }
 }
