@@ -15,19 +15,25 @@ class WorldTime {
   WorldTime({this.location, this.flag, this.url});
   //Get time class for this file
   Future<void> getTime() async {
-    //Url variable allows for different locations to be entered
-    Response response =
-        await get(Uri.parse("http://worldtimeapi.org/api/timezone/$url"));
-    Map data = jsonDecode(response.body);
-    debugPrint("$data");
-    //Choose characters of offset that matter
-    String datetime = data['datetime'];
-    String offset = data['utc_offset'].substring(0, 3);
-    //Crate DateTime object
-    DateTime now = DateTime.parse(datetime);
-    //Updates current time with offset
-    now = now.add(Duration(hours: int.parse(offset)));
-    //Sets time variable above w/ data
-    time = now.toString();
+    try {
+      //Url variable allows for different locations to be entered
+      Response response =
+          await get(Uri.parse("http://worldtimeapi.org/api/timezone/$url"));
+      Map data = jsonDecode(response.body);
+      debugPrint("$data");
+      //Choose characters of offset that matter
+      String datetime = data['datetime'];
+      String offset = data['utc_offset'].substring(0, 3);
+      //Crate DateTime object
+      DateTime now = DateTime.parse(datetime);
+      //Updates current time with offset
+      now = now.add(Duration(hours: int.parse(offset)));
+      //Sets time variable above w/ data
+      time = now.toString();
+    } catch (e) {
+      //Try-catch to show error on screen if cannot get time
+      debugPrint("CAUGHT ERROR: $e");
+      time = "Could not get time data";
+    }
   }
 }
