@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import "dart:convert";
+import 'package:world_time_app/services/world_time.dart';
 
 class Loading extends StatefulWidget {
   const Loading({Key? key}) : super(key: key);
@@ -12,21 +11,12 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  //add async between parenthesis & curly brackets to add await to Future
-  void getTime() async {
-    //Make the request
-    Response response = await get(
-        Uri.parse("http://worldtimeapi.org/api/timezone/America/Chicago"));
-    Map data = jsonDecode(response.body);
-    debugPrint("$data");
-    String datetime = data['datetime'];
-    //Choose characters of offset that matter
-    String offset = data['utc_offset'].substring(0, 3);
-    //Crate DateTime object
-    DateTime now = DateTime.parse(datetime);
-    //Updates current time with offset
-    now = now.add(Duration(hours: int.parse(offset)));
-    debugPrint("$now");
+  //Functio to create instance of worldTime to use getTime function in here
+  void setupWorldTime() async {
+    WorldTime instance = WorldTime(
+        location: 'Chicago', flag: 'Chicago.png', url: 'America/Chicago');
+    await instance.getTime();
+    debugPrint(instance.time);
   }
 
   //Created initState to set the initial state of the location screen
@@ -34,7 +24,8 @@ class _LoadingState extends State<Loading> {
   void initState() {
     //Run the original function that we are overriding
     super.initState();
-    getTime();
+    //Calls setupWorldTime function b/c that's the only way we can access the instance
+    setupWorldTime();
   }
 
   @override
