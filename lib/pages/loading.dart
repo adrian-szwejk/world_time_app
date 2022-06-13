@@ -11,15 +11,18 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  String? time = 'loading';
   //Functio to create instance of worldTime to use getTime function in here
   void setupWorldTime() async {
     WorldTime instance = WorldTime(
         location: 'Chicago', flag: 'Chicago.png', url: 'America/Chicago');
     await instance.getTime();
-    debugPrint(instance.time);
-    setState(() {
-      time = instance.time;
+    //Error to help with sending buildContexts over async functions
+    if (!mounted) return;
+    //After getting time go to home screen w/ 3 parameters or time data
+    Navigator.pushReplacementNamed(context, "/home", arguments: {
+      'location': instance.location,
+      'flag': instance.flag,
+      'time': instance.time,
     });
   }
 
@@ -34,10 +37,10 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Text("Current Time: $time"),
+        padding: EdgeInsets.all(30.0),
+        child: Text("loading"),
       ),
     );
   }

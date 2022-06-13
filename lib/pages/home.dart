@@ -8,8 +8,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  //Setup empty map to receive time data
+  Map data = {};
   @override
   Widget build(BuildContext context) {
+    //Setting data map w/ arguments pushed from Loading screen
+    data = ModalRoute.of(context)!.settings.arguments as Map;
+    debugPrint("$data");
     return Scaffold(
       //SafeArea widget makes sure it is visible for the user(within bounds of screen)
       body: SafeArea(
