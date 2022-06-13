@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import "dart:convert";
+import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class WorldTime {
   //Location name for the UI
@@ -29,7 +30,8 @@ class WorldTime {
       //Updates current time with offset
       now = now.add(Duration(hours: int.parse(offset)));
       //Sets time variable above w/ data
-      time = now.toString();
+      //Formatted w/ package
+      time = DateFormat.jm().format(now);
     } catch (e) {
       //Try-catch to show error on screen if cannot get time
       debugPrint("CAUGHT ERROR: $e");
