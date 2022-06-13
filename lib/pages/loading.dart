@@ -18,6 +18,7 @@ class _LoadingState extends State<Loading> {
         location: 'Chicago', flag: 'Chicago.png', url: 'America/Chicago');
     await instance.getTime();
     //Error to help with sending buildContexts over async functions
+    //VIEW LOADING: Comment all code below in this fn to preview loading spinner
     if (!mounted) return;
     //After getting time go to home screen w/ 3 parameters or time data
     Navigator.pushReplacementNamed(context, "/home", arguments: {
@@ -42,7 +43,7 @@ class _LoadingState extends State<Loading> {
       backgroundColor: Colors.lightBlue[200],
       body: const Center(
         //Spinning circle to replace loading text to show while app is loading up
-        child: SpinKitFadingCircle(
+        child: SpinKitCubeGrid(
           color: Colors.white,
           size: 100.0,
         ),
