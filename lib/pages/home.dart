@@ -28,6 +28,8 @@ class _HomeState extends State<Home> {
               icon: const Icon(Icons.edit_location),
               label: const Text("Edit Location"),
             ),
+            const SizedBox(height: 20.0),
+            Row(),
           ],
         ),
       ),
